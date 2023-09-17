@@ -12,14 +12,8 @@ async function Home() {
 			<h1 className={styles.mainHeading}>Latest Content:</h1>
 
 			{/* TODO: Iterate over the data read from the file system! */}
-			{blogPostList.map(({ slug, title, abstract, publishedOn }) => (
-				<BlogSummaryCard
-					key={slug}
-					slug={slug}
-					title={title}
-					abstract={abstract}
-					publishedOn={publishedOn}
-				/>
+			{blogPostList.map(({ slug, ...delegated }) => (
+				<BlogSummaryCard key={slug} slug={slug} {...delegated} />
 			))}
 		</div>
 	);
