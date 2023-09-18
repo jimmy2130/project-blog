@@ -1,6 +1,5 @@
 import React from 'react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import dynamic from 'next/dynamic';
 
 import { BLOG_TITLE } from '@/constants';
 import { loadBlogPost } from '@/helpers/file-helpers';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Work_Sans, Spline_Sans_Mono } from 'next/font/google';
+import { cookies } from 'next/headers';
 import clsx from 'clsx';
 
 import { LIGHT_TOKENS, DARK_TOKENS, BLOG_TITLE } from '@/constants';
@@ -28,8 +29,8 @@ export const metadata = {
 };
 
 function RootLayout({ children }) {
-	// TODO: Dynamic theme depending on user preference
-	const theme = 'light';
+	const savedTheme = cookies().get('color-theme');
+	const theme = savedTheme?.value || 'light';
 
 	return (
 		<RespectMotionPreferences>
