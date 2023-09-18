@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import { LIGHT_TOKENS, DARK_TOKENS, BLOG_TITLE } from '@/constants';
 
+import RespectMotionPreferences from '@/components/RespectMotionPreferences';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './styles.css';
@@ -31,18 +32,20 @@ function RootLayout({ children }) {
 	const theme = 'light';
 
 	return (
-		<html
-			lang="en"
-			className={clsx(mainFont.variable, monoFont.variable)}
-			data-color-theme={theme}
-			style={theme === 'light' ? LIGHT_TOKENS : DARK_TOKENS}
-		>
-			<body>
-				<Header theme={theme} />
-				<main>{children}</main>
-				<Footer />
-			</body>
-		</html>
+		<RespectMotionPreferences>
+			<html
+				lang="en"
+				className={clsx(mainFont.variable, monoFont.variable)}
+				data-color-theme={theme}
+				style={theme === 'light' ? LIGHT_TOKENS : DARK_TOKENS}
+			>
+				<body>
+					<Header theme={theme} />
+					<main>{children}</main>
+					<Footer />
+				</body>
+			</html>
+		</RespectMotionPreferences>
 	);
 }
 
