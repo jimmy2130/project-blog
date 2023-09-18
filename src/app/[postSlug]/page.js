@@ -4,11 +4,8 @@ import dynamic from 'next/dynamic';
 
 import { BLOG_TITLE } from '@/constants';
 import { loadBlogPost } from '@/helpers/file-helpers';
+import COMPONENT_MAP from '@/helpers/mdx-components';
 import BlogHero from '@/components/BlogHero';
-import CodeSnippet from '@/components/CodeSnippet';
-const DivisionGroupsDemo = dynamic(() =>
-	import('@/components/DivisionGroupsDemo'),
-);
 import styles from './postSlug.module.css';
 
 export async function generateMetadata({ params }) {
@@ -29,10 +26,7 @@ async function BlogPost({ params }) {
 				publishedOn={frontmatter.publishedOn}
 			/>
 			<div className={styles.page}>
-				<MDXRemote
-					source={content}
-					components={{ pre: CodeSnippet, DivisionGroupsDemo }}
-				/>
+				<MDXRemote source={content} components={COMPONENT_MAP} />
 			</div>
 		</article>
 	);
