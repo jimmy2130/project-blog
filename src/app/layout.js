@@ -3,7 +3,12 @@ import { Work_Sans, Spline_Sans_Mono } from 'next/font/google';
 import { cookies } from 'next/headers';
 import clsx from 'clsx';
 
-import { LIGHT_TOKENS, DARK_TOKENS, BLOG_TITLE } from '@/constants';
+import {
+	LIGHT_TOKENS,
+	DARK_TOKENS,
+	BLOG_TITLE,
+	COLOR_THEME_COOKIE_NAME,
+} from '@/constants';
 
 import RespectMotionPreferences from '@/components/RespectMotionPreferences';
 import Header from '@/components/Header';
@@ -29,7 +34,7 @@ export const metadata = {
 };
 
 function RootLayout({ children }) {
-	const savedTheme = cookies().get('color-theme');
+	const savedTheme = cookies().get(COLOR_THEME_COOKIE_NAME);
 	const theme = savedTheme?.value || 'light';
 
 	return (
