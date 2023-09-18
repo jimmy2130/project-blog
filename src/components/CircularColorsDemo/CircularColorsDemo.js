@@ -17,32 +17,36 @@ const COLORS = [
 
 function CircularColorsDemo() {
 	const [timeElapsed, setTimeElapsed] = React.useState(0);
-	const [isRunning, setIsRunning] = React.useState(false);
+	const [status, setStatus] = React.useState('idle');
 	const id = React.useId();
 
 	function toggle() {
-		setIsRunning(!isRunning);
+		if (status === 'idle') {
+			setStatus('playing');
+			setTimeElapsed(timeElapsed + 1);
+		} else {
+			setStatus('idle');
+		}
 	}
 
 	function reset() {
-		setIsRunning(false);
+		setStatus('idle');
 		setTimeElapsed(0);
 	}
 
 	React.useEffect(() => {
+		if (status !== 'playing') {
+			return;
+		}
 		function tick() {
 			setTimeElapsed(t => t + 1);
 		}
-		if (isRunning) {
-			const intervalId = window.setInterval(tick, 1000);
-			return () => {
-				window.clearInterval(intervalId);
-			};
-		}
-	}, [isRunning]);
+		const intervalId = window.setInterval(tick, 1000);
+		return () => {
+			window.clearInterval(intervalId);
+		};
+	}, [status]);
 
-	// TODO: This value should cycle through the colors in the
-	// COLORS array:
 	const selectedColor = COLORS[timeElapsed % COLORS.length];
 
 	return (
@@ -56,7 +60,7 @@ function CircularColorsDemo() {
 							{isSelected && (
 								<motion.div
 									className={styles.selectedColorOutline}
-									layoutId={id}
+									layoutId={`${id}-selected-color-outline`}
 								/>
 							)}
 							<div
@@ -82,8 +86,8 @@ function CircularColorsDemo() {
 				</dl>
 				<div className={styles.actions}>
 					<button onClick={toggle}>
-						{isRunning ? <Pause /> : <Play />}
-						<VisuallyHidden>{isRunning ? 'Play' : 'Pause'}</VisuallyHidden>
+						{status === 'playing' ? <Pause /> : <Play />}
+						<VisuallyHidden>{status ? 'Play' : 'Pause'}</VisuallyHidden>
 					</button>
 					<button onClick={reset}>
 						<RotateCcw />
